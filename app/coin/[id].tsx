@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -37,6 +37,7 @@ export default function CoinDetailScreen() {
   // --- State ---
   const [loading, setLoading] = useState(true);
   const [chartLoading, setChartLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Coin Data State
   const [coinData, setCoinData] = useState<any>(null);
@@ -50,20 +51,23 @@ export default function CoinDetailScreen() {
 
   // --- Data Fetching ---
 
-  useEffect(() => {
-    const fetchDetails = async () => {
-      if (!coinId) return;
-      try {
-        const data = await CryptoApi.getCoinDetails(coinId);
-        setCoinData(data);
-      } catch (error) {
-        console.error("Error fetching coin details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchDetails();
+  const fetchDetails = useCallback(async () => {
+    if (!coinId) return;
+    try {
+      setErrorMessage(null);
+      const data = await CryptoApi.getCoinDetails(coinId);
+      setCoinData(data);
+    } catch (error) {
+      console.error("Error fetching coin details:", error);
+      setErrorMessage("Unable to load coin details.");
+    } finally {
+      setLoading(false);
+    }
   }, [coinId]);
+
+  useEffect(() => {
+    fetchDetails();
+  }, [fetchDetails]);
 
   useEffect(() => {
     const fetchChart = async () => {
@@ -128,13 +132,32 @@ export default function CoinDetailScreen() {
           { justifyContent: "center", alignItems: "center" },
         ]}
       >
-        <ActivityIndicator size="large" color={COLORS.primary} />
+        {errorMessage ? (
+          <>
+            <Text style={styles.errorText}>{errorMessage}</Text>
+            <TouchableOpacity
+              style={styles.retryButton}
+              onPress={() => {
+                setLoading(true);
+                setChartLoading(true);
+                setCoinData(null);
+                setRawChartData([]);
+                fetchDetails();
+              }}
+            >
+              <Text style={styles.retryButtonText}>Retry</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        )}
       </SafeAreaView>
     );
   }
 
-  const currentPrice = coinData.market_data.current_price.usd;
-  const priceChange = coinData.market_data.price_change_percentage_24h;
+  const marketData = coinData.market_data;
+  const currentPrice = marketData?.current_price?.usd ?? 0;
+  const priceChange = marketData?.price_change_percentage_24h ?? 0;
   const isPositive = priceChange >= 0;
   const chartColor = getChartColor();
   const chartSpacing =
@@ -342,19 +365,33 @@ export default function CoinDetailScreen() {
           <View style={styles.statsGrid}>
             <StatItem
               label="Market Cap"
-              value={`$${(coinData.market_data.market_cap.usd / 1e9).toFixed(2)}B`}
+              value={
+                marketData?.market_cap?.usd
+                  ? `$${(marketData.market_cap.usd / 1e9).toFixed(2)}B`
+                  : "N/A"
+              }
             />
             <StatItem
               label="Volume (24h)"
-              value={`$${(coinData.market_data.total_volume.usd / 1e9).toFixed(2)}B`}
+              value={
+                marketData?.total_volume?.usd
+                  ? `$${(marketData.total_volume.usd / 1e9).toFixed(2)}B`
+                  : "N/A"
+              }
             />
             <StatItem
               label="Circulating"
-              value={`${(coinData.market_data.circulating_supply / 1e6).toFixed(1)}M`}
+              value={
+                marketData?.circulating_supply
+                  ? `${(marketData.circulating_supply / 1e6).toFixed(1)}M`
+                  : "N/A"
+              }
             />
             <StatItem
               label="All Time High"
-              value={`$${coinData.market_data.ath.usd}`}
+              value={
+                marketData?.ath?.usd ? `$${marketData.ath.usd}` : "N/A"
+              }
             />
           </View>
         </View>

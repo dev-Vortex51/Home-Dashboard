@@ -137,14 +137,14 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   iconImage: {
-    width: 30,
-    height: 30,
-    borderRadius: 20,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
   },
   iconFallback: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     backgroundColor: COLORS.border,
     justifyContent: "center",
     alignItems: "center",
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   infoContainer: {
-    gap: 4,
+    gap: 6,
   },
   symbol: {
     color: COLORS.textSecondary,

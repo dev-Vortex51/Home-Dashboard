@@ -8,6 +8,25 @@ export const marketStyles = StyleSheet.create({
     paddingBottom: 60,
     paddingTop: 20,
   },
+  errorText: {
+    color: COLORS.textSecondary,
+    fontSize: 14,
+    fontFamily: FONTS.medium,
+    marginBottom: 12,
+    textAlign: "center",
+    paddingHorizontal: 24,
+  },
+  retryButton: {
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 12,
+  },
+  retryButtonText: {
+    color: "#FFF",
+    fontSize: 14,
+    fontFamily: FONTS.bold,
+  },
   headerContainer: {
     paddingHorizontal: 16,
     paddingTop: 10,
