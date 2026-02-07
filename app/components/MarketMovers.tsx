@@ -46,6 +46,9 @@ export const MarketMovers = memo(
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.scrollContent}
+      snapToInterval={CARD_WIDTH + CARD_GAP}
+      decelerationRate="fast"
+      snapToAlignment="start"
       shouldRasterizeIOS={true}
     >
       {movers.map((coin) => {
@@ -102,18 +105,22 @@ export const MarketMovers = memo(
 );
 MarketMovers.displayName = "MarketMovers";
 
+const CARD_WIDTH = 120;
+const CARD_HEIGHT = 132;
+const CARD_GAP = 14;
+
 const styles = StyleSheet.create({
   scrollContent: {
     paddingHorizontal: 4,
     paddingVertical: 10,
-    gap: 12,
+    gap: CARD_GAP,
   },
   card: {
-    width: 140,
-    height: 150,
+    width: CARD_WIDTH,
+    height: CARD_HEIGHT,
     borderRadius: 20,
     backgroundColor: COLORS.cardBg,
-    padding: 16,
+    padding: 14,
     justifyContent: "space-between",
 
     borderWidth: 1,
@@ -130,14 +137,14 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   iconImage: {
-    width: 30,
-    height: 30,
-    borderRadius: 20,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
   },
   iconFallback: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     backgroundColor: COLORS.border,
     justifyContent: "center",
     alignItems: "center",
@@ -160,7 +167,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   infoContainer: {
-    gap: 4,
+    gap: 6,
   },
   symbol: {
     color: COLORS.textSecondary,

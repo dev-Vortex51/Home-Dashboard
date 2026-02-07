@@ -54,6 +54,7 @@ export default function MarketScreen() {
   const [coins, setCoins] = useState<Coin[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Debounced search handler
   const debouncedSearch = useRef(
@@ -74,10 +75,18 @@ export default function MarketScreen() {
   // 2. Fetch Data Function
   const fetchMarketData = async () => {
     try {
+      setErrorMessage(null);
+      if (!refreshing) {
+        setIsLoading(true);
+      }
       const data = await CryptoApi.getMarketCoins("usd", 1, 50);
+      if (!data?.length) {
+        setErrorMessage("No market data available.");
+      }
       setCoins(data);
     } catch (error) {
       console.error("Failed to fetch market data:", error);
+      setErrorMessage("Failed to fetch market data.");
     } finally {
       setIsLoading(false);
       setRefreshing(false);
@@ -202,6 +211,22 @@ export default function MarketScreen() {
         ]}
       >
         <ActivityIndicator size="large" color={COLORS.primary} />
+      </SafeAreaView>
+    );
+  }
+
+  if (errorMessage && !coins.length) {
+    return (
+      <SafeAreaView
+        style={[
+          styles.container,
+          { justifyContent: "center", alignItems: "center" },
+        ]}
+      >
+        <Text style={styles.errorText}>{errorMessage}</Text>
+        <TouchableOpacity style={styles.retryButton} onPress={fetchMarketData}>
+          <Text style={styles.retryButtonText}>Retry</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }

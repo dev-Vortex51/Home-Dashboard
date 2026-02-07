@@ -1,12 +1,9 @@
 import { useRouter } from "expo-router";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
-  ActivityIndicator,
-  InteractionManager,
   LayoutAnimation,
   Platform,
   RefreshControl,
-  ScrollView,
   SectionList,
   StatusBar,
   Text,
@@ -36,16 +33,6 @@ export default function NotificationsScreen() {
   const router = useRouter();
   const [items, setItems] = useState<NotificationItem[]>(MOCK_NOTIFICATIONS);
   const [refreshing, setRefreshing] = useState(false);
-
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    const task = InteractionManager.runAfterInteractions(() => {
-      setIsReady(true);
-    });
-
-    return () => task.cancel();
-  }, []);
 
   const unreadCount = items.filter((item) => item.unread).length;
 
@@ -99,43 +86,35 @@ export default function NotificationsScreen() {
         onMarkAll={onMarkAll}
       />
 
-      <ScrollView style={styles.bodyContainer}>
-        {!isReady ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="small" color={COLORS.primary} />
+      <SectionList
+        sections={sectionsData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.itemContainer}>
+            <NotificationRow
+              item={item}
+              onPress={onPressRow}
+              onDelete={onDeleteRow}
+            />
           </View>
-        ) : (
-          <SectionList
-            sections={sectionsData}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View style={styles.itemContainer}>
-                <NotificationRow
-                  item={item}
-                  onPress={onPressRow}
-                  onDelete={onDeleteRow}
-                />
-              </View>
-            )}
-            renderSectionHeader={renderSectionHeader}
-            ListEmptyComponent={<EmptyNotifications />}
-            initialNumToRender={8}
-            maxToRenderPerBatch={10}
-            windowSize={5}
-            removeClippedSubviews={true}
-            contentContainerStyle={styles.listContent}
-            stickySectionHeadersEnabled={false}
-            refreshControl={
-              <RefreshControl
-                tintColor={COLORS.primary}
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-                // progressViewOffset={72}
-              />
-            }
-          />
         )}
-      </ScrollView>
+        renderSectionHeader={renderSectionHeader}
+        ListEmptyComponent={<EmptyNotifications />}
+        initialNumToRender={8}
+        maxToRenderPerBatch={10}
+        windowSize={5}
+        removeClippedSubviews={true}
+        contentContainerStyle={styles.listContent}
+        stickySectionHeadersEnabled={false}
+        refreshControl={
+          <RefreshControl
+            tintColor={COLORS.primary}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            // progressViewOffset={72}
+          />
+        }
+      />
     </SafeAreaView>
   );
 }
