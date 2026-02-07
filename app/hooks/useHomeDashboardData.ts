@@ -1,16 +1,10 @@
 import type { HomeScreenData } from "@/app/types/home";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { DATA_REFRESH_DELAY } from "../constants/constants";
 import { MOCK_HOME_DATA } from "../data/mockData";
 
 type Status = "loading" | "ready" | "empty" | "error";
 
-const simulateRequest = () =>
-  new Promise<HomeScreenData>((resolve) => {
-    setTimeout(() => {
-      resolve(MOCK_HOME_DATA);
-    }, DATA_REFRESH_DELAY);
-  });
+const simulateRequest = () => Promise.resolve(MOCK_HOME_DATA);
 
 export const useHomeDashboardData = () => {
   const [data, setData] = useState<HomeScreenData | null>(null);
