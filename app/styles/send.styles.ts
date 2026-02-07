@@ -1,0 +1,180 @@
+import { StyleSheet } from "react-native";
+import { COLORS, FONTS } from "../constants/constants";
+
+export const sendStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  backBtn: {
+    padding: 8,
+    marginLeft: -8,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontFamily: FONTS.bold,
+    color: COLORS.textPrimary,
+  },
+  scrollContent: {
+    padding: 20,
+  },
+  label: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    fontFamily: FONTS.medium,
+    marginBottom: 8,
+    marginTop: 16,
+  },
+  assetSelector: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: COLORS.cardBg,
+    padding: 16,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.05)",
+  },
+  assetRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  coinIconPlaceholder: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: COLORS.primary,
+    marginRight: 12,
+  },
+  assetSymbol: {
+    fontSize: 16,
+    color: COLORS.textPrimary,
+    fontFamily: FONTS.bold,
+  },
+  assetBalance: {
+    fontSize: 12,
+    color: COLORS.textSecondary,
+    fontFamily: FONTS.regular,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: COLORS.cardBg,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.05)",
+    paddingHorizontal: 16,
+    height: 56,
+  },
+  textInput: {
+    flex: 1,
+    color: COLORS.textPrimary,
+    fontFamily: FONTS.medium,
+    fontSize: 16,
+  },
+  inputIcons: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16,
+  },
+  pasteText: {
+    color: COLORS.primary,
+    fontSize: 12,
+    fontFamily: FONTS.bold,
+    letterSpacing: 0.5,
+  },
+  amountHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 16,
+  },
+  currencyToggle: {
+    color: COLORS.primary,
+    fontSize: 12,
+    fontFamily: FONTS.bold,
+  },
+  amountContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 10,
+  },
+  largeInput: {
+    fontSize: 48,
+    color: COLORS.textPrimary,
+    fontFamily: FONTS.bold,
+    textAlign: "center",
+    minWidth: 100,
+  },
+  inputSuffix: {
+    fontSize: 24,
+    color: COLORS.textSecondary,
+    fontFamily: FONTS.medium,
+    marginLeft: 8,
+    marginTop: 12,
+  },
+  percentRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 24,
+  },
+  percentBtn: {
+    backgroundColor: COLORS.cardBg,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.05)",
+    minWidth: 70,
+    alignItems: "center",
+  },
+  percentText: {
+    color: COLORS.textSecondary,
+    fontFamily: FONTS.semiBold,
+    fontSize: 12,
+  },
+  feeContainer: {
+    backgroundColor: "rgba(98, 126, 234, 0.1)",
+    padding: 16,
+    borderRadius: 12,
+    gap: 8,
+  },
+  feeRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  feeLabel: {
+    color: COLORS.textSecondary,
+    fontSize: 14,
+    fontFamily: FONTS.regular,
+  },
+  feeValue: {
+    color: COLORS.textPrimary,
+    fontSize: 14,
+    fontFamily: FONTS.medium,
+  },
+  footer: {
+    padding: 20,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(255,255,255,0.05)",
+  },
+  previewButton: {
+    backgroundColor: COLORS.primary,
+    paddingVertical: 16,
+    borderRadius: 30,
+    alignItems: "center",
+  },
+  previewText: {
+    color: "#FFF",
+    fontSize: 16,
+    fontFamily: FONTS.bold,
+  },
+});
