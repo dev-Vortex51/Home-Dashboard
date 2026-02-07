@@ -46,6 +46,9 @@ export const MarketMovers = memo(
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.scrollContent}
+      snapToInterval={CARD_WIDTH + CARD_GAP}
+      decelerationRate="fast"
+      snapToAlignment="start"
       shouldRasterizeIOS={true}
     >
       {movers.map((coin) => {
@@ -102,18 +105,22 @@ export const MarketMovers = memo(
 );
 MarketMovers.displayName = "MarketMovers";
 
+const CARD_WIDTH = 100;
+const CARD_HEIGHT = 120;
+const CARD_GAP = 12;
+
 const styles = StyleSheet.create({
   scrollContent: {
     paddingHorizontal: 4,
     paddingVertical: 10,
-    gap: 12,
+    gap: CARD_GAP,
   },
   card: {
-    width: 140,
-    height: 150,
+    width: CARD_WIDTH,
+    height: CARD_HEIGHT,
     borderRadius: 20,
     backgroundColor: COLORS.cardBg,
-    padding: 16,
+    padding: 12,
     justifyContent: "space-between",
 
     borderWidth: 1,
