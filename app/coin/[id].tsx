@@ -497,25 +497,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 16,
   },
-  errorText: {
-    color: COLORS.textSecondary,
-    fontSize: 14,
-    fontFamily: FONTS.medium,
-    marginBottom: 12,
-    textAlign: "center",
-    paddingHorizontal: 24,
-  },
-  retryButton: {
-    backgroundColor: COLORS.primary,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 12,
-  },
-  retryButtonText: {
-    color: "#FFF",
-    fontSize: 14,
-    fontFamily: FONTS.bold,
-  },
   tooltipContainer: {
     backgroundColor: COLORS.cardBg,
     padding: 8,

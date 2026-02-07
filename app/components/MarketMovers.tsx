@@ -105,9 +105,9 @@ export const MarketMovers = memo(
 );
 MarketMovers.displayName = "MarketMovers";
 
-const CARD_WIDTH = 120;
-const CARD_HEIGHT = 132;
-const CARD_GAP = 14;
+const CARD_WIDTH = 100;
+const CARD_HEIGHT = 120;
+const CARD_GAP = 12;
 
 const styles = StyleSheet.create({
   scrollContent: {
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     height: CARD_HEIGHT,
     borderRadius: 20,
     backgroundColor: COLORS.cardBg,
-    padding: 14,
+    padding: 12,
     justifyContent: "space-between",
 
     borderWidth: 1,
