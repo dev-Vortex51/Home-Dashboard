@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   Dimensions,
   Image,
+  LayoutChangeEvent,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -45,6 +46,7 @@ export default function CoinDetailScreen() {
   const [selectedRange, setSelectedRange] = useState("1D");
   const [isFavorite, setIsFavorite] = useState(false);
   const [hasAlert, setHasAlert] = useState(false);
+  const [chartWidth, setChartWidth] = useState(width);
 
   // --- Data Fetching ---
 
@@ -135,6 +137,8 @@ export default function CoinDetailScreen() {
   const priceChange = coinData.market_data.price_change_percentage_24h;
   const isPositive = priceChange >= 0;
   const chartColor = getChartColor();
+  const chartSpacing =
+    chartData.length > 0 ? chartWidth / (chartData.length + 10) : 0;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -214,7 +218,15 @@ export default function CoinDetailScreen() {
         </View>
 
         {/* Chart Section */}
-        <View style={styles.chartContainer}>
+        <View
+          style={styles.chartContainer}
+          onLayout={(event: LayoutChangeEvent) => {
+            const nextWidth = event.nativeEvent.layout.width;
+            if (nextWidth && nextWidth !== chartWidth) {
+              setChartWidth(nextWidth);
+            }
+          }}
+        >
           {chartLoading ? (
             <View
               style={{
@@ -230,8 +242,8 @@ export default function CoinDetailScreen() {
               areaChart
               data={chartData}
               height={220}
-              width={width}
-              spacing={width / (chartData.length + 10)}
+              width={chartWidth}
+              spacing={chartSpacing}
               initialSpacing={0}
               color={chartColor}
               thickness={2}
@@ -445,7 +457,8 @@ const styles = StyleSheet.create({
   chartContainer: {
     height: 240,
     justifyContent: "center",
-    marginLeft: -10,
+    alignItems: "center",
+    paddingHorizontal: 16,
   },
   tooltipContainer: {
     backgroundColor: COLORS.cardBg,

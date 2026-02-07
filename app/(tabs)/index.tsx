@@ -45,7 +45,10 @@ const HomeScreen = () => {
     if (status === "empty") {
       return (
         <View style={styles.contentStack}>
-          <EmptyState onConnect={() => {}} onAdd={() => {}} />
+          <EmptyState
+            onConnect={() => router.push("/settings")}
+            onAdd={() => router.push("/portfolio")}
+          />
           <View style={styles.emptyStateSection}>
             <SectionHeader
               title="Trending Now"
@@ -83,7 +86,10 @@ const HomeScreen = () => {
           onPress={() => handleNavigate("/ai-insights")}
         />
         {topInsight && (
-          <AiInsightCard insight={topInsight} onPress={() => {}} />
+          <AiInsightCard
+            insight={topInsight}
+            onPress={() => handleNavigate("/ai-insight")}
+          />
         )}
 
         <SectionHeader
